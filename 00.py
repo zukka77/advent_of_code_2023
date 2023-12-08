@@ -1,14 +1,13 @@
 from pathlib import Path
-from typing import Any
 
 BASE_DIR = Path(__file__).parent
 
 
-def question_1(data: str) -> Any:
+def question_1(data: str) -> int:
     ...
 
 
-def question_2(data: str) -> Any:
+def question_2(data: str) -> int:
     ...
 
 
