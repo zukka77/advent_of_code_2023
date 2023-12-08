@@ -55,26 +55,7 @@ def question_2(data: str) -> int:
         target, start, length = list(map(int, line.split()))
         cur_table.append(tabline(target, start, length))
     min_loc = tables[-1][-1].start
-    import pprint
-
-    # for i in range(0, len(seeds), 2):
-    #    for loc in range(seeds[i], seeds[i] + seeds[i + 1]):
-    #        for table in tables:
-    #            for entry in table:
-    #                if loc >= entry.start and loc < entry.start + entry.length:
-    #                    loc += entry.target - entry.start
-    #                    break
-    #        min_loc = min(min_loc, loc)
-    start_ranges = []
-    for i in range(0, len(seeds), 2):
-        start_ranges.append(tabline(seeds[i], seeds[i], seeds[i + 1]))
-
-    tables.insert(0, start_ranges)
-    pprint.pprint(tables)
-    for i, table in enumerate(tables):
-        for r in table:
-            ...
-    return
+    return 0
 
 
 def test_question_1():
@@ -160,6 +141,5 @@ humidity-to-location map:
 if __name__ == "__main__":
     res = question_1(Path(BASE_DIR / "INPUT").read_text(encoding="utf8"))
     print(f"Question 1: {res}")
-    # res = question_2(Path(BASE_DIR / "INPUT").read_text(encoding="utf8"))
-    # print(f"Question 2: {res}")
-    test_question_2()
+    res = question_2(Path(BASE_DIR / "INPUT").read_text(encoding="utf8"))
+    print(f"Question 2: {res}")
