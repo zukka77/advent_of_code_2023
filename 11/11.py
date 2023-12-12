@@ -20,19 +20,17 @@ def expand_universe(universe: list[list[str]]) -> list[list[str]]:
     return new_universe
 
 
-def universe_expand_factor(universe: list[list[str]], expansion_factor=1) -> tuple[list[int], list[int]]:
+def universe_expand_factor(universe: list[list[str]]) -> tuple[list[int], list[int]]:
     new_universe: list[list[str]] = []
     cols = [[r[c] for r in universe] for c in range(len(universe[0]))]
     exp_cols = []
     for c, col in enumerate(cols):
         if all([x == "." for x in col]):
-            # exp_cols.append(c + len(exp_cols) * expansion_factor)
             exp_cols.append(c)
     exp_rows = []
     for r, row in enumerate(universe):
         new_universe.append(row)
         if all([x == "." for x in row]):
-            # exp_rows.append(r + len(exp_rows) * expansion_factor)
             exp_rows.append(r)
     return (exp_rows, exp_cols)
 
@@ -58,7 +56,7 @@ def question_1(data: str) -> int:
 
 def question_2(data: str, expansion_factor=1_000_000) -> int:
     universe = [[c for c in line] for line in data.splitlines()]
-    rows_expansion, cols_expansion = universe_expand_factor(universe, expansion_factor)
+    rows_expansion, cols_expansion = universe_expand_factor(universe)
     galaxies = []
     for r, row in enumerate(universe):
         for c, val in enumerate(row):
