@@ -10,13 +10,14 @@ BASE_DIR = Path(__file__).parent
 def find_area(commands: list[tuple[str, int, int]]) -> int:
     dir = {"U": (-1, 0), "D": (1, 0), "L": (0, -1), "R": (0, 1)}
     pos = (0, 0)
-    points = [pos]
+    points = []
     n_points = 0
     for direction, steps, _ in commands:
         n_points += steps
         new_pos = (pos[0] + dir[direction][0] * steps, pos[1] + dir[direction][1] * steps)
         points.append(new_pos)
         pos = new_pos
+
     # shoelace formula to calculate the area
     area = (
         abs(sum([points[i][1] * (points[(i + 1) % len(points)][0] - points[i - 1][0]) for i in range(len(points))]))
