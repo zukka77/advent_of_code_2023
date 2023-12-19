@@ -61,6 +61,21 @@ def question_1(data: str) -> int:
     return len(path) // 2
 
 
+def get_internal_points(points: list[tuple[int, int]]) -> int:
+    border_len = len(points)
+    # shoelace formula to calculate the area
+    # https://en.wikipedia.org/wiki/Shoelace_formula
+    area = (
+        abs(sum([points[i][1] * (points[(i + 1) % len(points)][0] - points[i - 1][0]) for i in range(len(points))]))
+        // 2
+    )
+    # internal point (based on Pick's theorem)
+    # https://en.wikipedia.org/wiki/Pick%27s_theorem
+    i = area - border_len // 2 + 1
+
+    return i
+
+
 def question_2(data: str) -> int:
     g = [[c for c in row] for row in data.splitlines()]
     # find starting point
@@ -73,22 +88,8 @@ def question_2(data: str) -> int:
         if start:
             break
     assert start is not None
-    path = set(find_loop(start, g))
-    n_dots = 0
-    for r, row in enumerate(g):
-        inside = False
-        ncandidates = 0
-        for c, val in enumerate(row):
-            if (r, c) not in path:
-                if inside:
-                    ncandidates += 1
-                continue
-            if (r, c) in path and val in ("|", "L", "J", "S"):
-                if inside:
-                    n_dots += ncandidates
-                ncandidates = 0
-                inside = not inside
-    return n_dots
+    path = find_loop(start, g)
+    return get_internal_points(path)
 
 
 def test_question_1():
